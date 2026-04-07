@@ -3,10 +3,328 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link style=""
+    <title>Jojo Wellness — Build Strength. Shape Your Body.</title>
+    <meta name="description" content="Structured workout programs for weight loss, glutes building, and flat tummy — gym or home. Train with Jojo Wellness.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./resources/CSS/index.css">
 </head>
 <body>
-    
+
+    <!-- ============================================================
+         NAVBAR
+    ============================================================ -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+        <div class="navbar-inner">
+            <a href="#home" class="nav-brand">Jojo<em>Wellness</em></a>
+
+            <ul class="nav-links" role="list">
+                <li><a href="#programs">Programs</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#programs" class="nav-pill">Start Now</a></li>
+            </ul>
+
+            <button
+                class="hamburger"
+                id="hamburger"
+                aria-label="Toggle navigation menu"
+                aria-expanded="false"
+                aria-controls="mobileNav"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile nav drawer -->
+    <div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
+        <a href="#programs" onclick="closeNav()">Programs</a>
+        <a href="#about"    onclick="closeNav()">About</a>
+        <a href="#gallery"  onclick="closeNav()">Gallery</a>
+        <a href="#contact"  onclick="closeNav()">Contact</a>
+        <a href="#programs" onclick="closeNav()">Start Your Program &rarr;</a>
+    </div>
+
+
+    <!-- ============================================================
+         HERO
+    ============================================================ -->
+    <section id="home" aria-label="Hero">
+        <div class="hero-bg">
+            <!-- Hero: strong full-body gym pose, white outfit -->
+            <img
+                src="resources/images/efc2a37e-25c5-4a31-9908-f363e6173562.jpeg"
+                alt="Jojo — Personal Trainer standing confidently in the gym"
+                loading="eager"
+                fetchpriority="high"
+            >
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-eyebrow">Personal Training</div>
+            <h1>
+                Build Glutes<span class="sep"> &bull; </span>Burn Fat<br>
+                <span class="hl">Get a Flat Tummy</span>
+            </h1>
+            <p class="hero-sub">
+                Structured workout programs designed to help you lose weight, gain healthy weight,
+                build glutes, and strengthen your body — whether you train at home or in the gym.
+            </p>
+            <div class="hero-cta-wrap">
+                <a href="#programs" class="btn btn-primary">Start Your Program</a>
+                <span class="hero-scroll-hint">Scroll to explore &darr;</span>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================================
+         PROGRAMS
+    ============================================================ -->
+    <section id="programs" aria-labelledby="programs-title">
+        <div class="programs-wrap">
+            <div class="section-head">
+                <p class="section-label">Training Programs</p>
+                <h2 class="section-title" id="programs-title">Choose Your Program</h2>
+                <p class="section-sub">Every program is built to deliver real, visible results — gym or home, your choice.</p>
+            </div>
+
+            <div class="programs-grid">
+
+                <!-- ── 1. WEEKLY GLUTES CHALLENGE (featured — appears first) ── -->
+                <div class="card featured">
+                    <div class="card-badge">&#9733; Most Popular</div>
+                    <div class="card-icon">&#129354;</div>
+                    <h3>Weekly Glutes Challenge</h3>
+                    <p>
+                        Build stronger, rounder glutes with targeted workouts designed for both gym and home training.
+                        Stop guessing your glutes workouts. Join the challenge and learn how to train your glutes
+                        the right way for real shape and strength.
+                    </p>
+                    <ul class="card-includes">
+                        <li>Gym or Home workout option</li>
+                        <li>Simple structured workouts</li>
+                        <li>Effective glute exercises</li>
+                    </ul>
+                    <!-- REPLACE href="#paypal-placeholder" with your actual PayPal checkout link for the Glutes Challenge -->
+                    <a href="#paypal-placeholder" class="btn btn-primary">Join the Challenge</a>
+                </div>
+
+                <!-- ── 2. WEEKLY ABS CHALLENGE ── -->
+                <div class="card">
+                    <div class="card-icon">&#128170;</div>
+                    <h3>Weekly Abs Challenge</h3>
+                    <p>
+                        Strengthen your core and work toward a tighter waistline with this weekly abs challenge.
+                        The workouts focus on core activation and effective abdominal training.
+                    </p>
+                    <ul class="card-includes">
+                        <li>Gym or Home option</li>
+                        <li>Easy to follow routine</li>
+                        <li>Core strengthening workouts</li>
+                    </ul>
+                    <!-- REPLACE href="#paypal-placeholder" with your actual PayPal checkout link for the Abs Challenge -->
+                    <a href="#paypal-placeholder" class="btn btn-outline">Join the Challenge</a>
+                </div>
+
+                <!-- ── 3. ONLINE TRAINING (ZOOM COACHING) ── -->
+                <div class="card">
+                    <div class="card-icon">&#127909;</div>
+                    <h3>Online Training (Zoom Coaching)</h3>
+                    <p>
+                        Train with me live through Zoom and get personal guidance during your workout.
+                        I will guide you through your training, help correct your form, and keep you motivated
+                        so you can reach your goals faster.
+                    </p>
+                    <!-- REPLACE href="#paypal-placeholder" with your actual PayPal checkout link for Zoom Coaching -->
+                    <a href="#paypal-placeholder" class="btn btn-outline">Book Your Session</a>
+                </div>
+
+                <!-- ── 4. CUSTOM DAILY WORKOUT PLAN ── -->
+                <div class="card">
+                    <div class="card-icon">&#128203;</div>
+                    <h3>Custom Daily Workout Plan</h3>
+                    <p>
+                        Get a structured daily workout plan designed for your personal fitness goal.
+                        Whether your goal is weight loss, weight gain, stronger glutes, or a flat tummy,
+                        this plan will guide your training step by step.
+                    </p>
+                    <ul class="card-includes">
+                        <li>Choice between Gym or Home workouts</li>
+                        <li>Personalized training structure</li>
+                        <li>Simple and effective workout routine</li>
+                    </ul>
+                    <!-- REPLACE href="#paypal-placeholder" with your actual PayPal checkout link for Custom Plan -->
+                    <a href="#paypal-placeholder" class="btn btn-outline">Get Your Plan</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================================
+         ABOUT
+    ============================================================ -->
+    <section id="about" aria-labelledby="about-title">
+        <div class="about-wrap">
+            <div class="about-img-wrap">
+                <!-- About: confident gym pose, great portrait crop -->
+                <img
+                    src="resources/images/167c7b37-2dc2-4f9b-9af3-929a4b3c46bd.jpeg"
+                    alt="Jojo — Personal Trainer"
+                    loading="lazy"
+                >
+            </div>
+
+            <div class="about-text">
+                <p class="section-label">About Me</p>
+                <h2 id="about-title">Meet Jojo</h2>
+                <p>
+                    I'm Jojo, a personal trainer dedicated to helping people build stronger, healthier,
+                    and more confident bodies. I help clients with weight loss, weight gain, glutes building,
+                    and flat tummy goals through structured strength training programs designed for both
+                    gym and home workouts.
+                </p>
+                <p>
+                    My goal is to help people train safely, stay consistent, and achieve real progress
+                    in their fitness journey.
+                </p>
+                <div class="about-pills">
+                    <span class="pill">Weight Loss</span>
+                    <span class="pill">Glutes Building</span>
+                    <span class="pill">Flat Tummy</span>
+                    <span class="pill">Weight Gain</span>
+                    <span class="pill">Home &amp; Gym</span>
+                </div>
+                <a href="#programs" class="btn btn-primary">View Programs</a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================================
+         GALLERY
+    ============================================================ -->
+    <section id="gallery" aria-labelledby="gallery-title">
+        <div class="gallery-wrap">
+            <div class="section-head">
+                <p class="section-label">Gallery</p>
+                <h2 class="section-title" id="gallery-title">In the Gym</h2>
+                <p class="section-sub">Training hard and showing up every day.</p>
+            </div>
+
+            <div class="gallery-grid">
+
+                <!-- Pink top, motivational mural background -->
+                <div class="g-item">
+                    <img
+                        src="resources/images/d660bff8-9f38-4514-8716-2a7935e64eeb.jpeg"
+                        alt="Jojo training at the gym"
+                        loading="lazy"
+                    >
+                </div>
+
+                <!-- Holding dumbbell, ball rack behind -->
+                <div class="g-item">
+                    <img
+                        src="resources/images/6f77f87f-7740-4323-9e26-0e542e01b812.jpeg"
+                        alt="Jojo with weights"
+                        loading="lazy"
+                    >
+                </div>
+
+                <!-- Pink top, cable machine workout -->
+                <div class="g-item">
+                    <img
+                        src="resources/images/93684ec4-ee27-4989-90e1-8ff638533ca3.jpeg"
+                        alt="Jojo working out on cable machine"
+                        loading="lazy"
+                    >
+                </div>
+
+                <!-- ================================================================
+                     VIDEO PLACEHOLDER BLOCK — add short workout clips here later.
+
+                     To add a local video, replace this .g-video-slot div with:
+
+                     <div class="g-item">
+                         <video src="resources/videos/clip1.mp4"
+                                autoplay muted loop playsinline
+                                style="width:100%;display:block;">
+                         </video>
+                     </div>
+
+                     For a YouTube / Instagram embed (9:16 vertical):
+                     <div class="g-item" style="aspect-ratio:9/16;position:relative;overflow:hidden;border-radius:14px;">
+                         <iframe src="YOUR_EMBED_URL"
+                                 style="position:absolute;inset:0;width:100%;height:100%;border:none;"
+                                 allowfullscreen>
+                         </iframe>
+                     </div>
+                ================================================================ -->
+                <div class="g-video-slot">
+                    <div class="play-icon">&#9654;</div>
+                    <p><strong>Video clip coming soon</strong></p>
+                    <small>Replace this block with a &lt;video&gt; tag or embed</small>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================================
+         FOOTER / CONTACT
+    ============================================================ -->
+    <footer id="contact">
+        <div class="footer-wrap">
+            <div class="footer-brand">Jojo<em>Wellness</em></div>
+            <div class="footer-slogan">Build Strength. Shape Your Body.</div>
+            <div class="footer-divider"></div>
+
+            <div class="footer-contact">
+
+                <!-- REPLACE href="#instagram" with your actual Instagram profile URL
+                     e.g. href="https://www.instagram.com/yourusername" -->
+                <a href="#instagram" class="c-link instagram" target="_blank" rel="noopener noreferrer" aria-label="Follow on Instagram">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                    Instagram
+                </a>
+
+                <a href="mailto:hello@jojowellness.com" class="c-link email" aria-label="Send an email">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                    hello@jojowellness.com
+                </a>
+
+                <!-- REPLACE the number after wa.me/ with your WhatsApp number in international format
+                     (no spaces, no +, no dashes) e.g. https://wa.me/447700900000 for +44 7700 900000 -->
+                <a href="https://wa.me/0000000000" class="c-link whatsapp" target="_blank" rel="noopener noreferrer" aria-label="Message on WhatsApp">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    </svg>
+                    WhatsApp
+                </a>
+
+            </div>
+
+            <p class="footer-copy">
+                &copy; <span id="yr"></span> Jojo Wellness. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+
+    <script src="./resources/JS/index.js"></script>
+
 </body>
 </html>
