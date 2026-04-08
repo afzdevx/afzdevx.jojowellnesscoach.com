@@ -1,2 +1,2 @@
-# Joyce
+# JOJO
 Website for JJ
