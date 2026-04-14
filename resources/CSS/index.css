@@ -818,6 +818,11 @@ footer {
     color: #fff;
 }
 
+.c-link.youtube {
+    background: #FF0000;
+    color: #fff;
+}
+
 .footer-copy {
     color: #4a4a4a;
     font-size: 0.73rem;
