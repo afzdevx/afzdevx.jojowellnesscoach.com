@@ -5,6 +5,12 @@
     var session = await window.auth.getSession();
     var userId  = session.user.id;
 
+    // UTIL
+    function escapeHtml(str) {
+        var map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+        return String(str || '').replace(/[&<>"']/g, function (c) { return map[c]; });
+    }
+
     // LOGOUT
     document.getElementById('logoutBtn').addEventListener('click', window.auth.signOut);
     var mobileLogout = document.getElementById('mobileLogout');
@@ -43,11 +49,13 @@
         var goalMap = { lose_weight: 'Lose Weight', gain_muscle: 'Gain Muscle', both: 'Lose Weight & Gain Muscle' };
         var since   = data.created_at ? new Date(data.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : '';
         document.getElementById('profileMeta').innerHTML =
-            '<span class="goal-badge">' + (goalMap[data.goal] || data.goal) + '</span>' +
+            '<span class="goal-badge">' + (goalMap[data.goal] || escapeHtml(data.goal)) + '</span>' +
             (since ? ' &nbsp;&bull;&nbsp; Member since ' + since : '');
     }
 
     // PROGRAMS
+    var programDataMap = {};
+
     async function loadPrograms() {
         var { data, error } = await window.sb
             .from('client_programs')
@@ -61,26 +69,35 @@
             return;
         }
 
+        programDataMap = {};
+        data.forEach(function (row) {
+            var p = row.programs;
+            programDataMap[p.id] = { type: p.type, file_url: p.file_url };
+        });
+
         grid.innerHTML = data.map(function (row) {
             var p = row.programs;
-            var typeLabel = { pdf: 'PDF Guide', video: 'Video', link: 'Online Resource' }[p.type] || p.type;
+            var typeLabel = { pdf: 'PDF Guide', video: 'Video', link: 'Online Resource' }[p.type] || escapeHtml(p.type);
             return '<div class="program-card">' +
                 '<span class="program-type-badge">' + typeLabel + '</span>' +
                 '<h3>' + escapeHtml(p.title) + '</h3>' +
                 '<p>' + escapeHtml(p.description || '') + '</p>' +
-                '<button class="btn btn-primary" onclick="downloadProgram(\'' + p.id + '\',\'' + p.type + '\',\'' + escapeHtml(p.file_url || '') + '\')">Download / View</button>' +
+                '<button class="btn btn-primary" data-action="download" data-program-id="' + escapeHtml(p.id) + '">Download / View</button>' +
             '</div>';
         }).join('');
     }
 
     // DOWNLOAD
-    window.downloadProgram = async function (programId, type, fileUrl) {
-        if (type === 'link') {
-            window.open(fileUrl, '_blank', 'noopener,noreferrer');
+    async function downloadProgram(programId) {
+        var prog = programDataMap[programId];
+        if (!prog) return;
+
+        if (prog.type === 'link') {
+            window.open(prog.file_url, '_blank', 'noopener,noreferrer');
             return;
         }
 
-        var path = fileUrl.replace(/^.*\/storage\/v1\/object\/[^/]+\/programs\//, '');
+        var path = prog.file_url.replace(/^.*\/storage\/v1\/object\/[^/]+\/programs\//, '');
         var { data, error } = await window.sb.storage.from('programs').createSignedUrl(path, 3600);
 
         if (error || !data) {
@@ -88,7 +105,13 @@
             return;
         }
         window.open(data.signedUrl, '_blank', 'noopener,noreferrer');
-    };
+    }
+
+    // EVENT DELEGATION
+    document.addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-action="download"]');
+        if (btn) downloadProgram(btn.dataset.programId);
+    });
 
     // PROGRESS
     async function loadProgress() {
@@ -176,14 +199,12 @@
 
     document.getElementById('log_date').value = new Date().toISOString().split('T')[0];
 
-    // UTIL
-    function escapeHtml(str) {
-        return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-    }
-
     // INIT
     loadProfile();
     loadPrograms();
     loadProgress();
 
-})();
+})().catch(function (err) {
+    console.error('Client dashboard error:', err);
+    window.auth && window.auth.toast('An error occurred. Please refresh the page.', 'error');
+});

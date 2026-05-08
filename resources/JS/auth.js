@@ -38,9 +38,6 @@ window.auth = (function () {
 
     // Get role
     async function getRole() {
-        var cached = sessionStorage.getItem('jw_role');
-        if (cached) return cached;
-
         var session = await getSession();
         if (!session) return null;
 
@@ -51,7 +48,6 @@ window.auth = (function () {
             .single();
 
         if (error || !data) return null;
-        sessionStorage.setItem('jw_role', data.role);
         return data.role;
     }
 
@@ -73,7 +69,7 @@ window.auth = (function () {
     // Password reset email
     async function sendResetEmail(email) {
         return await window.sb.auth.resetPasswordForEmail(email, {
-            redirectTo: 'https://www.jojowellnesscoach.com/auth/reset-password.html'
+            redirectTo: window.location.origin + '/auth/reset-password.html'
         });
     }
 

@@ -25,7 +25,8 @@
 
     // UTIL
     function escapeHtml(str) {
-        return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+        var map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+        return String(str || '').replace(/[&<>"']/g, function (c) { return map[c]; });
     }
 
     // CLIENTS
@@ -51,7 +52,7 @@
         var select = document.getElementById('assign_client');
         select.innerHTML = '<option value="">— No assignment yet —</option>' +
             data.map(function (c) {
-                return '<option value="' + c.id + '">' + escapeHtml(c.full_name) + ' (' + escapeHtml(c.email) + ')</option>';
+                return '<option value="' + escapeHtml(c.id) + '">' + escapeHtml(c.full_name) + ' (' + escapeHtml(c.email) + ')</option>';
             }).join('');
     }
 
@@ -71,22 +72,22 @@
             '<tbody>' +
             clients.map(function (c) {
                 var joined = c.created_at ? new Date(c.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '—';
-                return '<tr class="client-row" data-id="' + c.id + '">' +
+                return '<tr class="client-row" data-id="' + escapeHtml(c.id) + '">' +
                     '<td>' + escapeHtml(c.full_name) + '</td>' +
                     '<td>' + escapeHtml(c.email) + '</td>' +
-                    '<td><span class="goal-badge">' + (goalMap[c.goal] || c.goal || '—') + '</span></td>' +
+                    '<td><span class="goal-badge">' + (goalMap[c.goal] || escapeHtml(c.goal) || '—') + '</span></td>' +
                     '<td>' + joined + '</td>' +
-                    '<td><button class="btn btn-outline" style="padding:0.4rem 1rem; font-size:0.65rem;" onclick="toggleClientDetail(\'' + c.id + '\')">Details</button></td>' +
+                    '<td><button class="btn btn-outline" style="padding:0.4rem 1rem; font-size:0.65rem;" data-action="toggle-detail" data-client-id="' + escapeHtml(c.id) + '">Details</button></td>' +
                 '</tr>' +
-                '<tr class="client-detail-row" id="detail-' + c.id + '" style="display:none;">' +
-                    '<td colspan="5"><div id="detail-body-' + c.id + '"><span class="spinner"></span></div></td>' +
+                '<tr class="client-detail-row" id="detail-' + escapeHtml(c.id) + '" style="display:none;">' +
+                    '<td colspan="5"><div id="detail-body-' + escapeHtml(c.id) + '"><span class="spinner"></span></div></td>' +
                 '</tr>';
             }).join('') +
             '</tbody></table>';
     }
 
     // TOGGLE DETAIL
-    window.toggleClientDetail = async function (clientId) {
+    async function toggleClientDetail(clientId) {
         var row  = document.getElementById('detail-' + clientId);
         var body = document.getElementById('detail-body-' + clientId);
 
@@ -103,9 +104,9 @@
             window.sb.from('programs').select('id, title')
         ]);
 
-        var client  = allClients.find(function (c) { return c.id === clientId; }) || {};
-        var logs    = logsRes.data  || [];
-        var progs   = (progsRes.data || []).map(function (r) { return r.programs; });
+        var client   = allClients.find(function (c) { return c.id === clientId; }) || {};
+        var logs     = logsRes.data  || [];
+        var progs    = (progsRes.data || []).map(function (r) { return r.programs; });
         var allProgs = allProgsRes.data || [];
         var assignedIds = progs.map(function (p) { return p.id; });
 
@@ -124,28 +125,28 @@
         var unassigned = allProgs.filter(function (p) { return !assignedIds.includes(p.id); });
         var assignSelect = unassigned.length === 0 ? '' :
             '<div style="margin-top:0.8rem; display:flex; gap:0.6rem; align-items:center; flex-wrap:wrap;">' +
-            '<select id="assign-select-' + clientId + '" style="flex:1; min-width:180px; background:#111; border:1px solid var(--border); border-radius:8px; padding:0.55rem 0.8rem; color:var(--text); font-family:Inter,sans-serif; font-size:0.84rem;">' +
+            '<select id="assign-select-' + escapeHtml(clientId) + '" style="flex:1; min-width:180px; background:#111; border:1px solid var(--border); border-radius:8px; padding:0.55rem 0.8rem; color:var(--text); font-family:Inter,sans-serif; font-size:0.84rem;">' +
             '<option value="">— Assign a program —</option>' +
-            unassigned.map(function (p) { return '<option value="' + p.id + '">' + escapeHtml(p.title) + '</option>'; }).join('') +
+            unassigned.map(function (p) { return '<option value="' + escapeHtml(p.id) + '">' + escapeHtml(p.title) + '</option>'; }).join('') +
             '</select>' +
-            '<button class="btn btn-primary" style="padding:0.55rem 1.2rem; font-size:0.7rem;" onclick="assignProgram(\'' + clientId + '\')">Assign</button>' +
+            '<button class="btn btn-primary" style="padding:0.55rem 1.2rem; font-size:0.7rem;" data-action="assign-program" data-client-id="' + escapeHtml(clientId) + '">Assign</button>' +
             '</div>';
 
         body.innerHTML =
             '<div class="client-detail-grid">' +
             '<div class="detail-field"><span>Email</span>' + escapeHtml(client.email || '—') + '</div>' +
             '<div class="detail-field"><span>Phone</span>' + escapeHtml(client.phone || '—') + '</div>' +
-            '<div class="detail-field"><span>Age</span>' + (client.age || '—') + '</div>' +
-            '<div class="detail-field"><span>Height</span>' + (client.height_cm ? client.height_cm + ' cm' : '—') + '</div>' +
-            '<div class="detail-field"><span>Starting Weight</span>' + (client.weight_kg ? client.weight_kg + ' kg' : '—') + '</div>' +
+            '<div class="detail-field"><span>Age</span>' + escapeHtml(String(client.age || '—')) + '</div>' +
+            '<div class="detail-field"><span>Height</span>' + (client.height_cm ? escapeHtml(String(client.height_cm)) + ' cm' : '—') + '</div>' +
+            '<div class="detail-field"><span>Starting Weight</span>' + (client.weight_kg ? escapeHtml(String(client.weight_kg)) + ' kg' : '—') + '</div>' +
             '<div class="detail-field"><span>Goal</span>' + escapeHtml(client.goal || '—') + '</div>' +
             '</div>' +
             '<div style="margin-bottom:1rem;"><div class="detail-field" style="margin-bottom:0.5rem;"><span>Assigned Programs</span>' + progsHtml + '</div>' + assignSelect + '</div>' +
             '<div><div class="detail-field" style="margin-bottom:0.5rem;"><span>Recent Progress Logs</span></div>' + logsHtml + '</div>';
-    };
+    }
 
     // ASSIGN PROGRAM
-    window.assignProgram = async function (clientId) {
+    async function assignProgram(clientId) {
         var select    = document.getElementById('assign-select-' + clientId);
         var programId = select.value;
         if (!programId) { window.auth.toast('Select a program to assign.', 'error'); return; }
@@ -156,8 +157,8 @@
 
         window.auth.toast('Program assigned!', 'success');
         document.getElementById('detail-' + clientId).style.display = 'none';
-        window.toggleClientDetail(clientId);
-    };
+        toggleClientDetail(clientId);
+    }
 
     // SEARCH
     document.getElementById('clientSearch').addEventListener('input', function () {
@@ -187,17 +188,17 @@
         wrap.innerHTML = data.map(function (p) {
             return '<div class="dash-card" style="display:flex; justify-content:space-between; align-items:flex-start; gap:1rem;">' +
                 '<div>' +
-                '<span class="program-type-badge">' + (typeMap[p.type] || p.type) + '</span>' +
+                '<span class="program-type-badge">' + (typeMap[p.type] || escapeHtml(p.type)) + '</span>' +
                 '<h3 style="margin-top:0.5rem;">' + escapeHtml(p.title) + '</h3>' +
                 '<p>' + escapeHtml(p.description || '') + '</p>' +
                 '</div>' +
-                '<button class="btn btn-outline" style="padding:0.45rem 1rem; font-size:0.65rem; flex-shrink:0;" onclick="deleteProgram(\'' + p.id + '\')">Delete</button>' +
+                '<button class="btn btn-outline" style="padding:0.45rem 1rem; font-size:0.65rem; flex-shrink:0;" data-action="delete-program" data-program-id="' + escapeHtml(p.id) + '">Delete</button>' +
             '</div>';
         }).join('');
     }
 
     // DELETE PROGRAM
-    window.deleteProgram = async function (programId) {
+    async function deleteProgram(programId) {
         if (!confirm('Delete this program? This cannot be undone.')) return;
 
         var { error } = await window.sb.from('programs').delete().eq('id', programId);
@@ -205,7 +206,17 @@
 
         window.auth.toast('Program deleted.', 'success');
         loadAdminPrograms();
-    };
+    }
+
+    // EVENT DELEGATION
+    document.addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-action]');
+        if (!btn) return;
+        var action = btn.dataset.action;
+        if (action === 'toggle-detail') toggleClientDetail(btn.dataset.clientId);
+        else if (action === 'assign-program') assignProgram(btn.dataset.clientId);
+        else if (action === 'delete-program') deleteProgram(btn.dataset.programId);
+    });
 
     // UPLOAD
     document.getElementById('prog_type').addEventListener('change', function () {
@@ -229,7 +240,7 @@
         btn.disabled = true;
         btn.textContent = 'Saving…';
 
-        var session  = await window.auth.getSession();
+        var session   = await window.auth.getSession();
         var creatorId = session.user.id;
         var fileUrl   = link || null;
 
@@ -253,11 +264,11 @@
         }
 
         var { data: progData, error: progErr } = await window.sb.from('programs').insert({
-            title:      title,
+            title:       title,
             description: desc || null,
-            type:       type,
-            file_url:   fileUrl,
-            created_by: creatorId
+            type:        type,
+            file_url:    fileUrl,
+            created_by:  creatorId
         }).select('id').single();
 
         if (progErr || !progData) {
@@ -284,4 +295,7 @@
     loadClients();
     loadAdminPrograms();
 
-})();
+})().catch(function (err) {
+    console.error('Admin dashboard error:', err);
+    window.auth && window.auth.toast('An error occurred. Please refresh the page.', 'error');
+});
