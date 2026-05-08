@@ -68,11 +68,11 @@
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+                        <label for="email">Email Address <span style="color:var(--accent); font-size:0.78rem; font-weight:500;">(at least one required)</span></label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email">
                     </div>
                     <div class="form-group">
-                        <label for="phone">Phone Number</label>
+                        <label for="phone">Phone Number <span style="color:var(--accent); font-size:0.78rem; font-weight:500;">(at least one required)</span></label>
                         <input type="tel" id="phone" name="phone" placeholder="+1 555 000 0000" autocomplete="tel">
                     </div>
                 </div>
@@ -161,8 +161,13 @@
             var password   = document.getElementById('password').value;
             var confirm    = document.getElementById('confirm_password').value;
 
-            if (!full_name || !email || !goal || !password) {
+            if (!full_name || !goal || !password) {
                 window.auth.toast('Please fill in all required fields.', 'error');
+                return;
+            }
+
+            if (!email && !phone) {
+                window.auth.toast('Please provide at least an email address or phone number.', 'error');
                 return;
             }
 
