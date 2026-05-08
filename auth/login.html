@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — Jojo Wellness</title>
+    <meta name="robots" content="noindex">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/resources/CSS/index.css">
+    <link rel="stylesheet" href="/resources/CSS/auth.css">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co; img-src 'self' data:;">
+</head>
+<body>
+
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+        <div class="navbar-inner">
+            <a href="/index.html" class="nav-brand">Jojo<em>Wellness</em></a>
+            <ul class="nav-links" role="list">
+                <li><a href="/index.html#programs">Programs</a></li>
+                <li><a href="/index.html#about">About</a></li>
+                <li><a href="/index.html#contact">Contact</a></li>
+                <li><a href="/auth/signup.html" class="nav-pill">Sign Up</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileNav">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="mobile-nav" id="mobileNav">
+        <a href="/index.html#programs" onclick="closeNav()">Programs</a>
+        <a href="/index.html#about"    onclick="closeNav()">About</a>
+        <a href="/index.html#contact"  onclick="closeNav()">Contact</a>
+        <a href="/auth/signup.html"    onclick="closeNav()">Sign Up &rarr;</a>
+    </div>
+
+    <main class="auth-page">
+        <div class="auth-card">
+            <p class="section-label">Welcome Back</p>
+            <h1>Log In</h1>
+            <p class="auth-sub">Access your training programs and progress tracker.</p>
+
+            <form id="loginForm" novalidate>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Your password" autocomplete="current-password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="submitBtn">Log In</button>
+            </form>
+
+            <hr class="auth-divider">
+
+            <div class="auth-footer">
+                <a href="/auth/reset-password.html">Forgot your password?</a>
+            </div>
+            <div class="auth-footer" style="margin-top:0.6rem;">
+                Don't have an account? <a href="/auth/signup.html">Sign up</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/resources/JS/supabase-client.js"></script>
+    <script src="/resources/JS/auth.js"></script>
+    <script src="/resources/JS/index.js"></script>
+    <script>
+        // Redirect already-logged-in users
+        (async function () {
+            var session = await window.auth.getSession();
+            if (session) {
+                var role = await window.auth.getRole();
+                location.replace(role === 'admin' ? '/dashboard/admin.html' : '/dashboard/client.html');
+            }
+        })();
+
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            var btn   = document.getElementById('submitBtn');
+            var email = document.getElementById('email').value.trim();
+            var pw    = document.getElementById('password').value;
+
+            btn.disabled = true;
+            btn.textContent = 'Logging in…';
+
+            var { error } = await window.auth.signIn(email, pw);
+
+            if (error) {
+                window.auth.toast(error.message || 'Invalid email or password.', 'error');
+                btn.disabled = false;
+                btn.textContent = 'Log In';
+                return;
+            }
+
+            var role = await window.auth.getRole();
+            location.replace(role === 'admin' ? '/dashboard/admin.html' : '/dashboard/client.html');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — Jojo Wellness</title>
+    <meta name="robots" content="noindex">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/resources/CSS/index.css">
+    <link rel="stylesheet" href="/resources/CSS/auth.css">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co; img-src 'self' data: blob:;">
+</head>
+<body>
+
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+        <div class="navbar-inner">
+            <a href="/index.html" class="nav-brand">Jojo<em>Wellness</em></a>
+            <ul class="nav-links" role="list">
+                <li><a href="/index.html" style="color:var(--text-muted);">Main Site</a></li>
+                <li><button class="nav-pill" id="logoutBtn" style="background:transparent; border:1px solid var(--accent); color:var(--accent); cursor:pointer; font-family:Montserrat,sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; padding:0.45rem 1.2rem; border-radius:50px;">Log Out</button></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileNav">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="mobile-nav" id="mobileNav">
+        <a href="/index.html" onclick="closeNav()">Main Site</a>
+        <a href="#" id="mobileLogout" onclick="closeNav()">Log Out &rarr;</a>
+    </div>
+
+    <div class="dashboard-page">
+        <div class="dashboard-wrap">
+
+            <div class="dash-header">
+                <p class="section-label">Admin</p>
+                <h1>Coach Dashboard</h1>
+                <p class="dash-sub">Manage clients, programs, and uploads.</p>
+            </div>
+
+            <!-- Tab navigation -->
+            <div class="dash-tabs" role="tablist">
+                <button class="dash-tab active" role="tab" aria-selected="true"  data-tab="clients">Clients</button>
+                <button class="dash-tab"        role="tab" aria-selected="false" data-tab="programs-admin">Programs</button>
+                <button class="dash-tab"        role="tab" aria-selected="false" data-tab="upload">Upload</button>
+            </div>
+
+            <!-- Clients panel -->
+            <div class="dash-panel active" id="panel-clients" role="tabpanel">
+                <input type="search" class="client-search" id="clientSearch" placeholder="Search by name or email…" aria-label="Search clients">
+                <div id="clientsTableWrap">
+                    <div class="empty-state"><span class="spinner"></span></div>
+                </div>
+            </div>
+
+            <!-- Programs panel -->
+            <div class="dash-panel" id="panel-programs-admin" role="tabpanel">
+                <div id="adminProgramsWrap">
+                    <div class="empty-state"><span class="spinner"></span></div>
+                </div>
+            </div>
+
+            <!-- Upload panel -->
+            <div class="dash-panel" id="panel-upload" role="tabpanel">
+                <div class="dash-card upload-form">
+                    <h3 style="margin-bottom:1.2rem;">Add New Program</h3>
+
+                    <form id="uploadForm" novalidate>
+                        <div class="form-group">
+                            <label for="prog_title">Program Title</label>
+                            <input type="text" id="prog_title" name="prog_title" placeholder="e.g. 4-Week Glutes Plan" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prog_desc">Description</label>
+                            <textarea id="prog_desc" name="prog_desc" rows="3" placeholder="What's included in this program…" style="resize:vertical;"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prog_type">Content Type</label>
+                            <select id="prog_type" name="prog_type" required>
+                                <option value="" disabled selected>Select type</option>
+                                <option value="pdf">PDF File</option>
+                                <option value="video">Video File</option>
+                                <option value="link">External Link</option>
+                            </select>
+                        </div>
+
+                        <!-- File upload (shown for pdf/video) -->
+                        <div class="form-group" id="fileGroup">
+                            <label for="prog_file">Upload File</label>
+                            <input type="file" id="prog_file" name="prog_file" accept=".pdf,.mp4,.mov,.avi">
+                        </div>
+
+                        <!-- Link input (shown for link type) -->
+                        <div class="form-group" id="linkGroup" style="display:none;">
+                            <label for="prog_link">External URL</label>
+                            <input type="url" id="prog_link" name="prog_link" placeholder="https://…">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="assign_client">Assign to Client (optional)</label>
+                            <select id="assign_client" name="assign_client">
+                                <option value="">— No assignment yet —</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" id="uploadBtn">Save Program</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/resources/JS/supabase-client.js"></script>
+    <script src="/resources/JS/auth.js"></script>
+    <script src="/resources/JS/admin-dashboard.js"></script>
+    <script src="/resources/JS/index.js"></script>
+</body>
+</html>

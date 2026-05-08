@@ -1,0 +1,581 @@
+/* ===================================================
+   JOJO WELLNESS — AUTH & DASHBOARD STYLES
+   Extends the variables defined in index.css.
+   Import AFTER index.css on every auth/dashboard page.
+=================================================== */
+
+/* ── Page layout ───────────────────────────────────── */
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: calc(var(--nav-h) + 3rem) 5% 4rem;
+    background: var(--bg);
+}
+
+/* ── Auth card ─────────────────────────────────────── */
+.auth-card {
+    width: 100%;
+    max-width: 460px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 2.6rem 2.4rem 2.4rem;
+}
+
+.auth-card .section-label {
+    margin-bottom: 0.5rem;
+}
+
+.auth-card h1 {
+    font-size: 1.7rem;
+    font-weight: 800;
+    margin-bottom: 0.4rem;
+}
+
+.auth-card .auth-sub {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-bottom: 2rem;
+}
+
+/* ── Form elements ─────────────────────────────────── */
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.45rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    background: #111111;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.78rem 1rem;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.22s, box-shadow 0.22s;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.form-group select option {
+    background: #1a1a1a;
+}
+
+/* Two-column form row */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* ── Password strength bar ─────────────────────────── */
+.pw-strength {
+    margin-top: 0.5rem;
+    height: 4px;
+    border-radius: 4px;
+    background: var(--border);
+    overflow: hidden;
+}
+
+.pw-strength-bar {
+    height: 100%;
+    border-radius: 4px;
+    width: 0%;
+    transition: width 0.3s, background 0.3s;
+}
+
+.pw-strength-bar.weak   { width: 33%; background: #e05252; }
+.pw-strength-bar.medium { width: 66%; background: #e0a652; }
+.pw-strength-bar.strong { width: 100%; background: #52c078; }
+
+/* ── Form submit button ─────────────────────────────── */
+.auth-card .btn {
+    width: 100%;
+    text-align: center;
+    margin-top: 0.6rem;
+}
+
+/* ── Auth footer links ──────────────────────────────── */
+.auth-footer {
+    margin-top: 1.4rem;
+    text-align: center;
+    font-size: 0.84rem;
+    color: var(--text-muted);
+}
+
+.auth-footer a {
+    color: var(--accent);
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.auth-footer a:hover {
+    color: var(--accent-hover);
+}
+
+/* ── Divider ────────────────────────────────────────── */
+.auth-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 1.4rem 0;
+}
+
+/* ── Toast notifications ────────────────────────────── */
+.jw-toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    max-width: 340px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 10px;
+    padding: 0.9rem 1.2rem;
+    font-size: 0.875rem;
+    color: var(--text);
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.35s, transform 0.35s;
+    pointer-events: none;
+}
+
+.jw-toast--visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.jw-toast--success {
+    border-left-color: #52c078;
+}
+
+/* ===================================================
+   DASHBOARD LAYOUT
+=================================================== */
+
+.dashboard-page {
+    min-height: 100vh;
+    background: var(--bg);
+    padding-top: var(--nav-h);
+}
+
+.dashboard-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2.5rem 5% 4rem;
+}
+
+/* ── Dashboard header ───────────────────────────────── */
+.dash-header {
+    margin-bottom: 2rem;
+}
+
+.dash-header h1 {
+    font-size: 1.6rem;
+    font-weight: 800;
+}
+
+.dash-header .dash-sub {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    margin-top: 0.3rem;
+}
+
+/* ── Tab navigation ─────────────────────────────────── */
+.dash-tabs {
+    display: flex;
+    gap: 0.25rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2rem;
+}
+
+.dash-tab {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0.75rem 1.25rem;
+    cursor: pointer;
+    border: none;
+    background: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.dash-tab:hover { color: var(--text); }
+
+.dash-tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+
+/* ── Tab panels ─────────────────────────────────────── */
+.dash-panel { display: none; }
+.dash-panel.active { display: block; }
+
+/* ── Content cards ──────────────────────────────────── */
+.dash-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.6rem;
+    margin-bottom: 1rem;
+}
+
+.dash-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+}
+
+.dash-card p {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+}
+
+/* ── Program grid ───────────────────────────────────── */
+.programs-dash-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.2rem;
+}
+
+.program-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.program-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.program-card p {
+    font-size: 0.84rem;
+    color: var(--text-muted);
+    flex: 1;
+}
+
+.program-type-badge {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-tint);
+    border-radius: 50px;
+    padding: 0.28rem 0.7rem;
+    align-self: flex-start;
+}
+
+.program-card .btn {
+    margin-top: auto;
+    text-align: center;
+    padding: 0.65rem 1.5rem;
+    font-size: 0.72rem;
+}
+
+/* ── Progress chart (CSS bar chart) ─────────────────── */
+.progress-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 140px;
+    padding: 0 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.progress-bar-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+}
+
+.progress-bar {
+    width: 100%;
+    background: var(--accent);
+    border-radius: 4px 4px 0 0;
+    min-height: 4px;
+    transition: height 0.5s ease;
+    opacity: 0.85;
+}
+
+.progress-bar-label {
+    font-size: 0.62rem;
+    color: var(--text-muted);
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* ── Log form ────────────────────────────────────────── */
+.log-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 0.75rem;
+    align-items: end;
+    margin-top: 1.5rem;
+}
+
+.log-form .form-group {
+    margin-bottom: 0;
+}
+
+.log-form .btn {
+    padding: 0.78rem 1.4rem;
+    white-space: nowrap;
+    font-size: 0.72rem;
+}
+
+/* ── Admin client table ─────────────────────────────── */
+.client-search {
+    width: 100%;
+    background: #111;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    margin-bottom: 1.2rem;
+    transition: border-color 0.22s, box-shadow 0.22s;
+}
+
+.client-search:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.clients-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+.clients-table th {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0.6rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+.clients-table td {
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+}
+
+.clients-table tr:last-child td { border-bottom: none; }
+
+.clients-table tr.client-row {
+    cursor: pointer;
+    transition: background 0.18s;
+}
+
+.clients-table tr.client-row:hover {
+    background: rgba(255,255,255,0.03);
+}
+
+/* Client detail expand row */
+.client-detail-row td {
+    background: var(--bg-section);
+    padding: 1.2rem 1rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.client-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.detail-field {
+    font-size: 0.8rem;
+}
+
+.detail-field span {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.2rem;
+}
+
+/* ── Upload form ─────────────────────────────────────── */
+.upload-form {
+    max-width: 560px;
+}
+
+.upload-form .form-group {
+    margin-bottom: 1.3rem;
+}
+
+.upload-form .btn {
+    margin-top: 0.5rem;
+}
+
+/* ── Empty state ─────────────────────────────────────── */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-muted);
+}
+
+.empty-state p {
+    font-size: 0.875rem;
+}
+
+/* ── Loading spinner ─────────────────────────────────── */
+.spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ── Goal badge ──────────────────────────────────────── */
+.goal-badge {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 0.28rem 0.8rem;
+    border-radius: 50px;
+    background: var(--accent-tint);
+    color: var(--accent);
+}
+
+/* ── Profile sidebar ─────────────────────────────────── */
+.dash-profile {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.profile-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--accent-tint);
+    border: 2px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--accent);
+    flex-shrink: 0;
+}
+
+.profile-info h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+}
+
+.profile-info p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 640px) {
+    .auth-card {
+        padding: 2rem 1.4rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .log-form {
+        grid-template-columns: 1fr;
+    }
+
+    .client-detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dash-tabs {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .jw-toast {
+        left: 1rem;
+        right: 1rem;
+        bottom: 1rem;
+        max-width: none;
+    }
+
+    .clients-table th:nth-child(3),
+    .clients-table td:nth-child(3) {
+        display: none;
+    }
+}

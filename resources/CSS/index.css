@@ -133,6 +133,19 @@ h1, h2, h3, h4 {
     color: #fff;
 }
 
+.nav-links .nav-login-icon {
+    display: flex;
+    align-items: center;
+    color: var(--text-muted, #aaa);
+    transition: color 0.2s, transform 0.2s;
+    padding: 0.25rem;
+}
+
+.nav-links .nav-login-icon:hover {
+    color: var(--accent);
+    transform: translateY(-1px);
+}
+
 /* Hamburger button */
 .hamburger {
     display: none;

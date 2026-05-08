@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up — Jojo Wellness</title>
+    <meta name="robots" content="noindex">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/resources/CSS/index.css">
+    <link rel="stylesheet" href="/resources/CSS/auth.css">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; connect-src 'self' https://*.supabase.co; img-src 'self' data:;">
+    <style>
+        .auth-card { max-width: 540px; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+        <div class="navbar-inner">
+            <a href="/index.html" class="nav-brand">Jojo<em>Wellness</em></a>
+            <ul class="nav-links" role="list">
+                <li><a href="/index.html#programs">Programs</a></li>
+                <li><a href="/index.html#about">About</a></li>
+                <li><a href="/index.html#contact">Contact</a></li>
+                <li><a href="/auth/login.html" class="nav-pill">Log In</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileNav">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="mobile-nav" id="mobileNav">
+        <a href="/index.html#programs" onclick="closeNav()">Programs</a>
+        <a href="/index.html#about"    onclick="closeNav()">About</a>
+        <a href="/index.html#contact"  onclick="closeNav()">Contact</a>
+        <a href="/auth/login.html"     onclick="closeNav()">Log In &rarr;</a>
+    </div>
+
+    <main class="auth-page">
+        <div class="auth-card">
+            <p class="section-label">Get Started</p>
+            <h1>Create Account</h1>
+            <p class="auth-sub">Fill in your details so Jojo can personalise your program.</p>
+
+            <!-- Success state (hidden by default) -->
+            <div id="successMsg" style="display:none; text-align:center; padding:1.5rem 0;">
+                <p style="font-size:2rem; margin-bottom:0.8rem;">&#10003;</p>
+                <h2 style="font-size:1.2rem; margin-bottom:0.6rem;">Check your email!</h2>
+                <p style="color:var(--text-muted); font-size:0.875rem;">
+                    We've sent a confirmation link to your inbox.<br>
+                    Click it to activate your account, then <a href="/auth/login.html" style="color:var(--accent);">log in</a>.
+                </p>
+            </div>
+
+            <form id="signupForm" novalidate>
+
+                <!-- Personal info -->
+                <div class="form-group">
+                    <label for="full_name">Full Name</label>
+                    <input type="text" id="full_name" name="full_name" placeholder="Jane Smith" autocomplete="name" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+1 555 000 0000" autocomplete="tel">
+                    </div>
+                </div>
+
+                <!-- Body stats -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" name="age" placeholder="25" min="13" max="100" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="height_cm">Height (cm)</label>
+                        <input type="number" id="height_cm" name="height_cm" placeholder="165" min="100" max="250" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="weight_kg">Current Weight (kg)</label>
+                        <input type="number" id="weight_kg" name="weight_kg" placeholder="65" min="30" max="300" step="0.1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="goal">Fitness Goal</label>
+                        <select id="goal" name="goal" required>
+                            <option value="" disabled selected>Select your goal</option>
+                            <option value="lose_weight">Lose Weight</option>
+                            <option value="gain_muscle">Gain Muscle</option>
+                            <option value="both">Both</option>
+                        </select>
+                    </div>
+                </div>
+
+                <hr class="auth-divider">
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="At least 8 characters" autocomplete="new-password" required minlength="8">
+                    <div class="pw-strength" aria-hidden="true">
+                        <div class="pw-strength-bar" id="pwBar"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirm_password">Confirm Password</label>
+                    <input type="password" id="confirm_password" name="confirm_password" placeholder="Repeat your password" autocomplete="new-password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="submitBtn">Create Account</button>
+            </form>
+
+            <div class="auth-footer">
+                Already have an account? <a href="/auth/login.html">Log in</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/resources/JS/supabase-client.js"></script>
+    <script src="/resources/JS/auth.js"></script>
+    <script src="/resources/JS/index.js"></script>
+    <script>
+        // Password strength indicator
+        document.getElementById('password').addEventListener('input', function () {
+            var bar = document.getElementById('pwBar');
+            var val = this.value;
+            bar.className = 'pw-strength-bar';
+            if (val.length === 0) return;
+            if (val.length < 8) { bar.classList.add('weak'); return; }
+            var strong = /[A-Z]/.test(val) && /[0-9]/.test(val) && /[^A-Za-z0-9]/.test(val);
+            var medium = /[A-Z]/.test(val) || /[0-9]/.test(val);
+            bar.classList.add(strong ? 'strong' : medium ? 'medium' : 'weak');
+        });
+
+        document.getElementById('signupForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            var btn = document.getElementById('submitBtn');
+
+            var full_name  = document.getElementById('full_name').value.trim();
+            var email      = document.getElementById('email').value.trim();
+            var phone      = document.getElementById('phone').value.trim();
+            var age        = parseInt(document.getElementById('age').value, 10);
+            var height_cm  = parseFloat(document.getElementById('height_cm').value);
+            var weight_kg  = parseFloat(document.getElementById('weight_kg').value);
+            var goal       = document.getElementById('goal').value;
+            var password   = document.getElementById('password').value;
+            var confirm    = document.getElementById('confirm_password').value;
+
+            if (!full_name || !email || !goal || !password) {
+                window.auth.toast('Please fill in all required fields.', 'error');
+                return;
+            }
+
+            if (password.length < 8) {
+                window.auth.toast('Password must be at least 8 characters.', 'error');
+                return;
+            }
+
+            if (password !== confirm) {
+                window.auth.toast('Passwords do not match.', 'error');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.textContent = 'Creating account…';
+
+            var { error } = await window.auth.signUp({ full_name, email, phone, age, height_cm, weight_kg, goal, password });
+
+            if (error) {
+                window.auth.toast(error.message || 'Sign up failed. Please try again.', 'error');
+                btn.disabled = false;
+                btn.textContent = 'Create Account';
+                return;
+            }
+
+            document.getElementById('signupForm').style.display = 'none';
+            document.getElementById('successMsg').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
