@@ -28,14 +28,6 @@ A full-stack marketing and client management site for a personal trainer. Built 
     └── images/
 ```
 
-## Local Development
-
-No build step required. Open `index.html` directly or serve with any static file server:
-
-```bash
-npx serve .
-```
-
 ### Supabase Configuration
 
 The Supabase client reads credentials from [resources/JS/supabase-client.js](resources/JS/supabase-client.js). Before running locally, set your project URL and anon key there. **Do not commit real keys** — the `.gitignore` already excludes `.env` and key files.
