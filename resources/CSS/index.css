@@ -307,6 +307,7 @@ h1, h2, h3, h4 {
 #home {
     position: relative;
     min-height: 100vh;
+    min-height: 100svh;
     display: flex;
     align-items: flex-end;
     padding-bottom: 8vh;
@@ -884,6 +885,10 @@ footer {
         padding: 4.5rem 5%;
     }
 
+    #home {
+        padding-bottom: 6vh;
+    }
+
     .hero-sub {
         max-width: 100%;
     }
@@ -902,11 +907,57 @@ footer {
     }
 
     .about-img-wrap img {
-        height: 360px;
+        height: 320px;
     }
 
     .btn {
         padding: 0.88rem 1.6rem;
         font-size: 0.75rem;
+    }
+
+    #programs,
+    #about,
+    #gallery {
+        padding: 3.5rem 4%;
+    }
+
+    .hero-cta-wrap {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.85rem;
+    }
+
+    .section-head {
+        margin-bottom: 2rem;
+    }
+}
+
+/* ============================================================
+   RESPONSIVE — VERY SMALL MOBILE  (≤ 380px)
+============================================================ */
+@media (max-width: 380px) {
+    .navbar-inner {
+        padding: 0 4%;
+    }
+
+    .hero-content {
+        padding: 0 4%;
+    }
+
+    #home h1 {
+        font-size: clamp(2rem, 10.5vw, 2.6rem);
+        letter-spacing: -0.5px;
+    }
+
+    .hero-eyebrow {
+        font-size: 0.6rem;
+    }
+
+    .card {
+        padding: 1.6rem 1.4rem;
+    }
+
+    footer {
+        padding: 3rem 4% 2rem;
     }
 }
